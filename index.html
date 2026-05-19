@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Onion | Multan Branch</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #A50000;
+            --primary-dark: #800000;
+            --text-dark: #1a1a1a;
+            --text-gray: #666666;
+            --bg-light: #ffffff;
+            --bg-off-white: #f9f9f9;
+            --shadow: 0 4px 20px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --footer-bg: #121212;
+            --footer-text: #ababab;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button { border: none; outline: none; cursor: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- Custom Cursor --- */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--primary); }
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid var(--primary);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        body:hover .cursor-outline { opacity: 1; }
+        body.hovering .cursor-outline {
+            width: 60px; height: 60px;
+            background-color: rgba(165, 0, 0, 0.1);
+            border-color: transparent;
+        }
+
+        /* --- Navbar --- */
+        header {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+}     
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Adjust spacing between logo image and text */
+}
+.brand-logo {
+    width: auto;
+    height: 36px; /* Caps the height to fit nicely inside the fixed header */
+    object-fit: contain;
+    display: block;
+}
+.logo-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+}
+
+
+
+        .nav-actions { display: flex; align-items: center; gap: 20px; }
+
+        .cart-trigger {
+            position: relative;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+        .cart-trigger:hover { color: var(--primary); }
+
+        .cart-count {
+            position: absolute;
+            top: -8px; right: -8px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-weight: 700;
+        }
+
+        /* --- Hero Section (Shifted down for better balance) --- */
+        .hero {
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 160px 20px 80px 20px; /* Expanded top padding to lower text position */
+            background: radial-gradient(circle at center, #fff5f5 0%, #ffffff 70%);
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+
+        .hero span { color: var(--primary); }
+        .hero p { font-size: 1.15rem; color: var(--text-gray); max-width: 600px; margin-bottom: 2.5rem; }
+        
+        .hero-btn {
+            padding: 14px 36px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(165,0,0,0.15);
+        }
+        .hero-btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(165,0,0,0.25); }
+
+        /* --- News Ticker --- */
+        .ticker-wrap {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            overflow: hidden;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: ticker 30s linear infinite;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* --- Special Spotlight --- */
+        .spotlight-section {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .spotlight-card {
+            background: #fff5f5;
+            border-radius: 24px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+            border: 1px solid #ffe0e0;
+        }
+
+        .spotlight-img {
+    flex: 1;
+    max-width: 350px; /* Limits the width so it doesn't get too massive */
+    aspect-ratio: 1 / 1; /* Forces it into a square */
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(165, 0, 0, 0.15);
+}
+        .spotlight-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .spotlight-card:hover .spotlight-img img { transform: scale(1.05); }
+
+        .spotlight-content { flex: 1; }
+        
+        .badge {
+            background: var(--text-dark);
+            color: white;
+            padding: 5px 12px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .spotlight-content h2 { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); }
+        .spotlight-content p { font-size: 1.1rem; color: var(--text-gray); margin-bottom: 25px; }
+        
+        .spotlight-price { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; display: block; }
+
+        .spotlight-btn {
+            padding: 15px 40px;
+            background: var(--text-dark);
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        .spotlight-btn:hover { background: black; }
+
+        /* --- Menu Section --- */
+        .menu-section { padding: 5rem 5%; }
+        .section-title { text-align: center; font-size: 2.6rem; margin-bottom: 3rem; position: relative; }
+        .section-title::after {
+            content: ''; display: block; width: 60px; height: 4px;
+            background: var(--primary); margin: 10px auto 0; border-radius: 2px;
+        }
+
+        .category-title {
+            font-size: 1.6rem; margin: 3.5rem 0 1.5rem;
+            padding-bottom: 12px; border-bottom: 1px solid #eee;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex; flex-direction: column;
+        }
+
+        .menu-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-5px); }
+
+        .card-img {
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+        .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+        .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+
+        .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .item-name { font-weight: 700; font-size: 1.1rem; flex: 1; padding-right: 10px; }
+        .item-price { font-weight: 700; color: var(--primary); white-space: nowrap; }
+        .item-desc { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 15px; line-height: 1.4; }
+
+        .size-select {
+            width: 100%; padding: 8px; margin-bottom: 10px;
+            border: 1px solid #ddd; border-radius: 8px;
+            font-family: 'DM Sans', sans-serif; color: var(--text-dark); outline: none;
+        }
+        .size-select:focus { border-color: var(--primary); }
+
+        .add-btn {
+            width: 100%; padding: 10px;
+            background: white; color: var(--primary);
+            border: 1px solid var(--primary); border-radius: 8px; font-weight: 600;
+            transition: var(--transition);
+        }
+        .add-btn:hover { background: var(--primary); color: white; }
+
+        /* --- Cart Drawer --- */
+        .cart-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1000;
+            opacity: 0; visibility: hidden; transition: var(--transition);
+        }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
+
+        .cart-drawer {
+            position: fixed; top: 0; right: 0; width: 400px; max-width: 90%; height: 100%;
+            background: white; z-index: 1001; transform: translateX(100%);
+            transition: var(--transition); display: flex; flex-direction: column;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+        }
+        .cart-drawer.active { transform: translateX(0); }
+
+        .cart-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .close-cart { font-size: 1.2rem; color: var(--text-gray); }
+
+        .cart-body { flex: 1; overflow-y: auto; padding: 20px; }
+        
+        .cart-item {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #f5f5f5;
+        }
+        .cart-item-info h4 { font-size: 0.95rem; margin-bottom: 4px; }
+        .cart-item-info span { font-size: 0.85rem; color: var(--text-gray); }
+        .cart-item-price { font-weight: 700; color: var(--primary); font-size: 0.9rem; }
+        .remove-item { color: #ff4444; margin-left: 10px; font-size: 0.9rem; }
+
+        .user-details { margin-top: 20px; padding-top: 20px; border-top: 2px dashed #eee; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: var(--text-gray); }
+        .input-group input, .input-group textarea {
+            width: 100%; padding: 10px; border: 1px solid #ddd;
+            border-radius: 6px; font-family: inherit;
+        }
+
+        .cart-footer { padding: 20px; border-top: 1px solid #eee; background: #fafafa; }
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 800; margin-bottom: 15px; }
+        .checkout-btn {
+            width: 100%; padding: 15px; background: #25D366; color: white;
+            font-weight: 700; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: var(--transition);
+        }
+        .checkout-btn:hover { background: #1ebc57; }
+
+        /* --- Premium Greeno-Style Footer --- */
+        .greeno-footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 5rem 5% 2rem;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--primary);
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr 1fr;
+            gap: 40px;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .logo {
+            color: #ffffff;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            line-height: 1.7;
+            max-width: 320px;
+            margin-bottom: 20px;
+        }
+
+        .footer-title {
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            transition: color 0.2s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-contact p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact i {
+            color: var(--primary);
+            width: 16px;
+        }
+
+        .timing-badge {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .timing-badge span {
+            display: block;
+            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .social-flex {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .social-circle:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom-links a {
+            margin-left: 20px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #ffffff;
+        }
+
+        /* --- Floating Elements --- */
+        .float-wa {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25D366; color: white;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 30px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 990; transition: var(--transition);
+        }
+        .float-wa:hover { transform: scale(1.1); }
+
+        /* --- Animations --- */
+        .reveal-up { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.6rem; }
+            .hero { padding-top: 140px; }
+            .spotlight-card { flex-direction: column; text-align: center; }
+            .spotlight-img { width: 100%; height: 250px; }
+            .cart-drawer { width: 100%; }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 2.5rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .footer-bottom-links a {
+                margin: 0 10px;
+            }
+            .float-wa { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <a href="https://wa.me/923083603333" target="_blank" class="float-wa hover-trigger" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <header>
+     <div class="logo-wrapper hover-trigger">
+    <img src="https://i.postimg.cc/0QHMrRxw/redonion.jpg" alt="Red Onion Logo" class="brand-logo">
+    <span class="logo-text">Red Onion</span>
+</div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1 class="reveal-up">Authentic Taste <br><span class="hover-trigger">In Multan</span></h1>
+        <p class="reveal-up">Craving the best Broast, Pizza, and Burgers? We deliver excellence to your doorstep.</p>
+        <a href="#menu" class="hero-btn hover-trigger reveal-up">Order Now</a>
+    </section>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker-item">Order Now for Free Delivery within 5km!</div>
+            <div class="ticker-item">•</div>
+            <div class="ticker-item">1000+ Orders Served Today</div>
+            <div class="ticker-item">•</div>
+            <div class="ticker-item">Best in Town - Red Onion Multan</div>
+            <div class="ticker-item">•</div>
+            <div class="ticker-item">Fresh Ingredients, Authentic Taste</div>
+            <div class="ticker-item">•</div>
+            <div class="ticker-item">Order Now for Free Delivery within 5km!</div>
+            <div class="ticker-item">•</div>
+            <div class="ticker-item">1000+ Orders Served Today</div>
+            <div class="ticker-item">•</div>
+            <div class="ticker-item">Best in Town - Red Onion Multan</div>
+            <div class="ticker-item">•</div>
+            <div class="ticker-item">Fresh Ingredients, Authentic Taste</div>
+        </div>
+    </div>
+
+    <section class="spotlight-section">
+        <div class="spotlight-card reveal-up">
+            <div class="spotlight-img">
+                <img src="https://images.unsplash.com/photo-1624353365286-3f8d62daad51?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Molten Lava Cake">
+            </div>
+            <div class="spotlight-content">
+                <span class="badge">Signature Dessert</span>
+                <h2>Molten Lava with Ice Cream</h2>
+                <p>Warm, gooey chocolate cake with a liquid center, served with a scoop of vanilla ice cream. The perfect ending to your meal.</p>
+                <span class="spotlight-price">PKR 520</span>
+                <button class="spotlight-btn hover-trigger" onclick="addToCart('Molten Lava with Ice Cream', 520)">Buy Now</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-bar reveal-up" style="display:flex; justify-content:center; gap:40px; padding:2rem 5%; background:#fafafa; flex-wrap:wrap; text-align:center;">
+        <div class="info-item">
+            <i class="far fa-clock hover-trigger" style="color:var(--primary); font-size:1.5rem; margin-bottom:0.5rem; display:block;"></i>
+            <h4 style="margin-bottom:0.2rem;">Operating Hours</h4>
+            <p style="font-size:0.9rem; color:#666;">2:00 PM - 1:00 AM</p>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-motorcycle hover-trigger" style="color:var(--primary); font-size:1.5rem; margin-bottom:0.5rem; display:block;"></i>
+            <h4 style="margin-bottom:0.2rem;">Delivery</h4>
+            <p style="font-size:0.9rem; color:#666;">Free within 5km<br>Extra charges apply beyond</p>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <h2 class="section-title reveal-up">Our Menu</h2>
+        <div id="menu-container">
+            </div>
+    </section>
+
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <aside class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Order</h3>
+            <div class="close-cart hover-trigger" onclick="toggleCart()"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="cart-body" id="cart-body">
+            <div style="text-align: center; color: #999; margin-top: 50px;">Your cart is empty.</div>
+        </div>
+        
+        <div class="cart-body">
+             <div class="user-details">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" id="cust-name" placeholder="Your Name">
+                </div>
+                <div class="input-group">
+                    <label>Delivery Address</label>
+                    <textarea id="cust-address" rows="2" placeholder="Full Address"></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Contact Number</label>
+                    <input type="text" id="cust-phone" placeholder="0300-1234567">
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cart-total">PKR 0</span>
+            </div>
+            <button class="checkout-btn hover-trigger" onclick="checkoutWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Checkout via WhatsApp
+            </button>
+        </div>
+    </aside>
+
+    <footer class="greeno-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+               <div class="logo-wrapper" style="justify-content: center; margin-bottom: 1.5rem;">
+    <img src="https://i.postimg.cc/0QHMrRxw/redonion.jpg" alt="Red Onion Logo" class="brand-logo">
+    <span class="logo-text" style="color: white;">Red Onion</span>
+</div>
+</div>
+            
+            <div class="footer-links">
+                <div class="footer-title">Navigation</div>
+                <ul>
+                    <li><a href="#" class="hover-trigger">Home</a></li>
+                    <li><a href="#menu" class="hover-trigger">Our Menu</a></li>
+                    <li><a href="#menu" class="hover-trigger">Trending Deals</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <div class="footer-title">Contact Branch</div>
+                <p><i class="fas fa-phone-alt"></i> 0308-3603333</p>
+                <p><i class="fas fa-phone-alt"></i> 0309-3603333</p>
+                <p><i class="fas fa-map-marker-alt"></i> Multan Branch, Punjab</p>
+                <div class="timing-badge">
+                    <span>Timing Status</span>
+                    Open Daily: 2:00 PM - 1:00 AM
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-title">Follow Us</div>
+                <div class="social-flex">
+                    <a href="#" class="social-circle hover-trigger" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-circle hover-trigger" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-circle hover-trigger" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>&copy; 2026 Red Onion Multan. All Rights Reserved.</div>
+            <div class="footer-bottom-links">
+                <a href="#" class="hover-trigger">Privacy Policy</a>
+                <a href="#" class="hover-trigger">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuData = [
+            {
+                category: "DEALS",
+                items: [
+                    { name: "Deal 1", desc: "1 Large Pizza, 1.5L Drink", price: 1620, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAhH3gK43XUH0kfezH9IQJLgFnPSmysvEslwKw8f8YIttZAZsuN7C30Gvz&s=10" },
+                    { name: "Deal 2", desc: "1 Large Pizza, 10 Wings, 1.5L Drink", price: 2120, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs5Hq_DgNw6n5B3jaevPhI3zYS2FeiugoPZvVdCuAQ2kb0XoNGqAZ7RCm6&s=10" },
+                    { name: "Deal 3", desc: "1 Med Pizza, Flaming Pasta, 1L Drink", price: 1800, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdldQLyhAiYT8q_7QuWXKXDnjjfYkXhklB9m_gooRUAX4gEzxeHpioy9tD&s=10" },
+                    { name: "Deal 4", desc: "4 Zinger Burgers, 1.5L Drink", price: 1800, image: "https://placehold.co/600x400/ececec/999999?text=Deal+4" },
+                    { name: "Special Deal 1", desc: "1 Large Special Pizza, 1L Drink", price: 1750, image: "https://placehold.co/600x400/ececec/999999?text=Special+Deal+1" },
+                    { name: "Special Deal 2", desc: "1 Large Special Pizza, Special Pasta, 1.5L Drink", price: 2350, image: "https://placehold.co/600x400/ececec/999999?text=Special+Deal+2" },
+                    { name: "Combo Deal", desc: "1 Med Pizza, 2 Zinger Burgers, 1.5L Drink", price: 2030, image: "https://placehold.co/600x400/ececec/999999?text=Combo+Deal" },
+                    { name: "Family Deal", desc: "2 Large Pizza, 1 Platter, 1.5L Drink, 1 Reg Fries", price: 4090, image: "https://placehold.co/600x400/ececec/999999?text=Family+Deal" },
+                    { name: "Xtreme Party Deal", desc: "1 Xtreme Large, 5 Wings, 1.5L Drink", price: 2160, image: "https://placehold.co/600x400/ececec/999999?text=Xtreme+Party+Deal" },
+                    { name: "Birthday Deal", desc: "2 Large Pizza, 2 Reg Fries, 10 Wings, 2 Pound Cake, 1.5L Drink", price: 5250, image: "https://placehold.co/600x400/ececec/999999?text=Birthday+Deal" }
+                ]
+            },
+            {
+                category: "APPETIZERS",
+                items: [
+                    { name: "Crispy Wings", desc: "10 Pcs", price: 650, image: "https://placehold.co/600x400/ececec/999999?text=Crispy+Wings" },
+                    { name: "Masala Wings", desc: "10 Pcs", price: 650, image: "https://placehold.co/600x400/ececec/999999?text=Masala+Wings" },
+                    { name: "Nuggets", desc: "10 Pcs", price: 650, image: "https://placehold.co/600x400/ececec/999999?text=Nuggets" },
+                    { name: "Mexican Wings", desc: "10 Pcs", price: 750, image: "https://placehold.co/600x400/ececec/999999?text=Mexican+Wings" },
+                    { name: "Cheese Sticks", desc: "4 Pcs", price: 700, image: "https://placehold.co/600x400/ececec/999999?text=Cheese+Sticks" }
+                ]
+            },
+            {
+                category: "WRAPS",
+                items: [
+                    { name: "Chatkhara Roll", price: 660, image: "https://placehold.co/600x400/ececec/999999?text=Chatkhara+Roll" },
+                    { name: "Bihari Roll", price: 660, image: "https://placehold.co/600x400/ececec/999999?text=Bihari+Roll" },
+                    { name: "Crunchy Wrap", price: 480, image: "https://placehold.co/600x400/ececec/999999?text=Crunchy+Wrap" },
+                    { name: "Grilled Wrap", price: 550, image: "https://placehold.co/600x400/ececec/999999?text=Grilled+Wrap" },
+                    { name: "Paratha Roll", price: 320, image: "https://placehold.co/600x400/ececec/999999?text=Paratha+Roll" }
+                ]
+            },
+            {
+                category: "BURGERS",
+                items: [
+                    { name: "Chicken Patty", price: 350, image: "https://placehold.co/600x400/ececec/999999?text=Chicken+Patty" },
+                    { name: "Zinger", price: 450, image: "https://placehold.co/600x400/ececec/999999?text=Zinger" },
+                    { name: "Big Zee", price: 600, image: "https://placehold.co/600x400/ececec/999999?text=Big+Zee" },
+                    { name: "Red Onion Special", price: 620, image: "https://placehold.co/600x400/ececec/999999?text=Red+Onion+Special" },
+                    { name: "Grilled", price: 650, image: "https://placehold.co/600x400/ececec/999999?text=Grilled" },
+                    { name: "Fish", price: 700, image: "https://placehold.co/600x400/ececec/999999?text=Fish" },
+                    { name: "Double Decker", price: 750, image: "https://placehold.co/600x400/ececec/999999?text=Double+Decker" },
+                    { name: "Happy Cow (Beef)", price: 800, image: "https://placehold.co/600x400/ececec/999999?text=Happy+Cow" }
+                ]
+            },
+            {
+                category: "LACHA PARATHA",
+                items: [
+                    { name: "Crispy Paratha", price: 550, image: "https://placehold.co/600x400/ececec/999999?text=Crispy+Paratha" },
+                    { name: "Red Onion Special Paratha", price: 650, image: "https://placehold.co/600x400/ececec/999999?text=Special+Paratha" },
+                    { name: "Beef Paratha", price: 800, image: "https://placehold.co/600x400/ececec/999999?text=Beef+Paratha" }
+                ]
+            },
+            {
+                category: "FRIES",
+                items: [
+                    { name: "French Fries", variants: { "Medium": 350, "Large": 450 }, image: "https://placehold.co/600x400/ececec/999999?text=French+Fries" },
+                    { name: "Masala Fries", variants: { "Medium": 350, "Large": 450 }, image: "https://placehold.co/600x400/ececec/999999?text=Masala+Fries" },
+                    { name: "Garlic Fries", variants: { "Medium": 420, "Large": 540 }, image: "https://placehold.co/600x400/ececec/999999?text=Garlic+Fries" },
+                    { name: "Loaded Fries", variants: { "Medium": 550, "Large": 740 }, image: "https://placehold.co/600x400/ececec/999999?text=Loaded+Fries" },
+                    { name: "Pizza Fries", variants: { "Medium": 550, "Large": 740 }, image: "https://placehold.co/600x400/ececec/999999?text=Pizza+Fries" }
+                ]
+            },
+            {
+                category: "SANDWICHES & PASTA",
+                items: [
+                    { name: "Euro Sandwich", price: 790, image: "https://placehold.co/600x400/ececec/999999?text=Euro+Sandwich" },
+                    { name: "Grilled Tikka Sandwich", price: 850, image: "https://placehold.co/600x400/ececec/999999?text=Grilled+Tikka" },
+                    { name: "Flaming Pasta", variants: { "Half": 480, "Full": 750 }, image: "https://placehold.co/600x400/ececec/999999?text=Flaming+Pasta" },
+                    { name: "Red Onion Special Pasta", variants: { "Half": 560, "Full": 850 }, image: "https://placehold.co/600x400/ececec/999999?text=Special+Pasta" },
+                    { name: "Red Onion Platter", price: 1150, image: "https://placehold.co/600x400/ececec/999999?text=Red+Onion+Platter" },
+                    { name: "Bihari Platter", price: 1150, image: "https://placehold.co/600x400/ececec/999999?text=Bihari+Platter" }
+                ]
+            },
+            {
+                category: "ARABIC BROAST",
+                items: [
+                    { name: "Half Broast", price: 1220, image: "https://placehold.co/600x400/ececec/999999?text=Half+Broast" },
+                    { name: "Full Broast", price: 2320, image: "https://placehold.co/600x400/ececec/999999?text=Full+Broast" }
+                ]
+            },
+            {
+                category: "PIZZA",
+                items: [
+                    { name: "Traditional", variants: { "Small": 590, "Medium": 1130, "Large": 1520 }, image: "https://placehold.co/600x400/ececec/999999?text=Traditional+Pizza" },
+                    { name: "Speciality", variants: { "Small": 650, "Medium": 1230, "Large": 1640 }, image: "https://placehold.co/600x400/ececec/999999?text=Speciality+Pizza" },
+                    { name: "Xtreme", variants: { "Medium": 1450, "Large": 1890 }, image: "https://placehold.co/600x400/ececec/999999?text=Xtreme+Pizza" },
+                    { name: "Crust House", variants: { "Medium": 1400, "Large": 1860 }, image: "https://placehold.co/600x400/ececec/999999?text=Crust+House" },
+                    { name: "Square House", variants: { "Small": 820, "Medium": 1450, "Large": 1990 }, image: "https://placehold.co/600x400/ececec/999999?text=Square+House" },
+                    { name: "Black Pepper", variants: { "Small": 680, "Medium": 1270, "Large": 1690 }, image: "https://placehold.co/600x400/ececec/999999?text=Black+Pepper" }
+                ]
+            },
+            {
+                category: "DESSERTS",
+                items: [
+                    { name: "Molten Lava (Plain)", price: 420, image: "https://placehold.co/600x400/ececec/999999?text=Molten+Lava+Plain" },
+                    { name: "Molten Lava (With Ice Cream)", price: 520, image: "https://placehold.co/600x400/ececec/999999?text=Molten+Lava+Ice+Cream" }
+                ]
+            },
+            {
+                category: "BEVERAGES",
+                items: [
+                    { name: "Soft Drink (1.5L)", price: 230, image: "https://placehold.co/600x400/ececec/999999?text=Soft+Drink+1.5L" },
+                    { name: "Soft Drink (1L)", price: 170, image: "https://placehold.co/600x400/ececec/999999?text=Soft+Drink+1L" },
+                    { name: "Soft Drink (500ml)", price: 130, image: "https://placehold.co/600x400/ececec/999999?text=Soft+Drink+500ml" },
+                    { name: "Soft Drink (Can/Diet)", price: 140, image: "https://placehold.co/600x400/ececec/999999?text=Soft+Drink+Can" },
+                    { name: "Regular Drink", price: 80, image: "https://placehold.co/600x400/ececec/999999?text=Regular+Drink" },
+                    { name: "Water (Small)", price: 80, image: "https://placehold.co/600x400/ececec/999999?text=Water+Small" },
+                    { name: "Water (Large)", price: 120, image: "https://placehold.co/600x400/ececec/999999?text=Water+Large" }
+                ]
+            },
+            {
+                category: "EXTRAS",
+                items: [
+                    { name: "Dip Sauce", price: 100, image: "https://placehold.co/600x400/ececec/999999?text=Dip+Sauce" },
+                    { name: "1000 Island Sauce", price: 100, image: "https://placehold.co/600x400/ececec/999999?text=1000+Island" },
+                    { name: "Mayo", price: 100, image: "https://placehold.co/600x400/ececec/999999?text=Mayo" },
+                    { name: "Special Sauce", price: 150, image: "https://placehold.co/600x400/ececec/999999?text=Special+Sauce" },
+                    { name: "Extra Toppings (Small)", price: 160, image: "https://placehold.co/600x400/ececec/999999?text=Extra+Toppings+Small" },
+                    { name: "Extra Toppings (Medium)", price: 250, image: "https://placehold.co/600x400/ececec/999999?text=Extra+Toppings+Med" },
+                    { name: "Extra Toppings (Large)", price: 350, image: "https://placehold.co/600x400/ececec/999999?text=Extra+Toppings+Large" }
+                ]
+            }
+        ];
+
+        let cart = [];
+
+        function initMenu() {
+            const container = document.getElementById('menu-container');
+            let html = '';
+
+            menuData.forEach((cat) => {
+                html += `<h3 class="category-title reveal-up">${cat.category}</h3>`;
+                html += `<div class="menu-grid">`;
+                
+                cat.items.forEach(item => {
+                    let priceDisplay = '';
+                    let inputHtml = '';
+                    
+                    if (item.variants) {
+                        const firstVariantPrice = Object.values(item.variants)[0];
+                        priceDisplay = `PKR ${firstVariantPrice}`;
+                        
+                        let options = '';
+                        for (const [size, price] of Object.entries(item.variants)) {
+                            options += `<option value="${size}" data-price="${price}">${size} - PKR ${price}</option>`;
+                        }
+                        
+                        inputHtml = `
+                            <select class="size-select hover-trigger" id="select-${item.name.replace(/\s/g, '')}">
+                                ${options}
+                            </select>
+                            <button class="add-btn hover-trigger" onclick="addToCart('${item.name}', null, '${item.name.replace(/\s/g, '')}')">
+                                Add to Order
+                            </button>
+                        `;
+                    } else {
+                        priceDisplay = `PKR ${item.price}`;
+                        inputHtml = `
+                            <button class="add-btn hover-trigger" onclick="addToCart('${item.name}', ${item.price})">
+                                Add to Order
+                            </button>
+                        `;
+                    }
+
+                    html += `
+                        <div class="menu-card reveal-up">
+                            <div class="card-img">
+                                <img src="${item.image}" alt="${item.name}" loading="lazy">
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <div class="item-header">
+                                        <span class="item-name">${item.name}</span>
+                                        <span class="item-price">${priceDisplay}</span>
+                                    </div>
+                                    ${item.desc ? `<div class="item-desc">${item.desc}</div>` : ''}
+                                </div>
+                                ${inputHtml}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function addToCart(name, price, selectId) {
+            let finalPrice = price;
+            let variant = "";
+
+            if (selectId) {
+                const selectEl = document.getElementById(selectId);
+                const selectedOption = selectEl.options[selectEl.selectedIndex];
+                finalPrice = parseInt(selectedOption.getAttribute('data-price'));
+                variant = selectedOption.value;
+            }
+
+            cart.push({
+                name: name,
+                variant: variant,
+                price: finalPrice,
+                id: Date.now()
+            });
+
+            updateCartUI();
+            openCart();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const cartBody = document.getElementById('cart-body');
+            const userForm = document.querySelector('.user-details'); 
+            
+            if (cart.length === 0) {
+                cartBody.innerHTML = '<div style="text-align: center; color: #999; margin-top: 50px;">Your cart is empty.</div>';
+                cartBody.appendChild(userForm);
+                userForm.style.display = 'none';
+                document.getElementById('cart-total').innerText = 'PKR 0';
+                return;
+            }
+
+            cartBody.innerHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                total += item.price;
+                const displayName = item.variant ? `${item.name} (${item.variant})` : item.name;
+                
+                const itemEl = document.createElement('div');
+                itemEl.className = 'cart-item';
+                itemEl.innerHTML = `
+                    <div class="cart-item-info">
+                        <h4>${displayName}</h4>
+                        <span>Qty: 1</span>
+                    </div>
+                    <div style="display:flex; align-items:center;">
+                        <span class="cart-item-price">${item.price}</span>
+                        <i class="fas fa-trash-alt remove-item hover-trigger" onclick="removeFromCart(${item.id})"></i>
+                    </div>
+                `;
+                cartBody.appendChild(itemEl);
+            });
+
+            cartBody.appendChild(userForm);
+            userForm.style.display = 'block';
+            document.getElementById('cart-total').innerText = `PKR ${total}`;
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-overlay');
+            drawer.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function openCart() {
+            document.getElementById('cart-drawer').classList.add('active');
+            document.getElementById('cart-overlay').classList.add('active');
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+
+            if (!name || !address || !phone) {
+                alert("Please fill in your Name, Address, and Phone Number to proceed.");
+                return;
+            }
+
+            let message = `*New Order - Red Onion Multan*%0A%0A`;
+            message += `*Customer Details:*%0A`;
+            message += `Name: ${name}%0A`;
+            message += `Phone: ${phone}%0A`;
+            message += `Address: ${address}%0A%0A`;
+            
+            message += `*Order Items:*%0A`;
+            let total = 0;
+            cart.forEach(item => {
+                const displayName = item.variant ? `${item.name} (${item.variant})` : item.name;
+                message += `- ${displayName}: ${item.price}%0A`;
+                total += item.price;
+            });
+
+            message += `%0A*Total Bill: ${total} PKR*`;
+            const waNumber = "923083603333"; 
+            
+            window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+        }
+
+        const cursorDot = document.querySelector('[data-cursor-dot]');
+        const cursorOutline = document.querySelector('[data-cursor-outline]');
+
+        window.addEventListener("mousemove", function (e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        document.addEventListener('mouseover', (e) => {
+            if(e.target.closest('.hover-trigger')) {
+                document.body.classList.add('hovering');
+            } else {
+                document.body.classList.remove('hovering');
+            }
+        });
+
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        function setupAnimations() {
+            const elements = document.querySelectorAll('.reveal-up');
+            elements.forEach(el => observer.observe(el));
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initMenu();
+            setupAnimations();
+            document.querySelector('.user-details').style.display = 'none'; 
+        });
+    </script>
+</body>
+</html>
